@@ -1,0 +1,548 @@
+// This is your Prisma schema file
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ============== AUTHENTICATION & USERS ==============
+
+model User {
+  id                    Int                    @id @default(autoincrement())
+  clerkId               String                 @unique
+  email                 String                 @unique
+  name                  String?
+  createdAt             DateTime               @default(now())
+  updatedAt             DateTime               @updatedAt
+
+  // Relations
+  organizations         Organization[]
+  approvedRequests      ApprovalRequest[]
+  approvedAgentTasks    AgentTask[]
+}
+
+// ============== ORGANIZATIONS (for white-label) ==============
+
+model Organization {
+  id                    Int                    @id @default(autoincrement())
+  name                  String
+  ownerId               Int
+  customDomain          String?
+  brandingLogoUrl       String?
+  primaryColor          String?
+  createdAt             DateTime               @default(now())
+  updatedAt             DateTime               @updatedAt
+
+  // Relations
+  owner                 User                   @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  websites              Website[]
+  apiKeys               ApiKey[]
+
+  @@index([ownerId])
+}
+
+// ============== WEBSITES ==============
+
+model Website {
+  id                    Int                    @id @default(autoincrement())
+  organizationId        Int
+  url                   String
+  domainName            String?
+  gscConnected          Boolean                @default(false)
+  gscPropertyId         String?
+  lastScrapedAt         DateTime?
+  createdAt             DateTime               @default(now())
+  updatedAt             DateTime               @updatedAt
+
+  // Relations
+  organization          Organization          @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  websiteData           WebsiteData[]
+  gscData               GscData[]
+  agents                Agent[]
+  agentMessages         AgentMessage[]
+  keywords              Keyword[]
+  contentPieces         ContentPiece[]
+  rankings              Ranking[]
+  backlinks             Backlink[]
+  performanceMetrics    PerformanceMetric[]
+  weeklyReports         WeeklyReport[]
+  approvalRequests      ApprovalRequest[]
+  monetizationConfig    MonetizationConfig?   @relation("MonetizationConfig")
+  serpResearch          SerpResearch[]
+  guestPostingCampaigns GuestPostingCampaign[]
+
+  @@unique([organizationId, url])
+  @@index([organizationId])
+}
+
+// ============== WEBSITE DATA INGESTION ==============
+
+model WebsiteData {
+  id                    Int                    @id @default(autoincrement())
+  websiteId             Int
+  dataType              String                 // 'pages', 'technical_audit', 'schema_markup', 'backlinks'
+  rawData               Json
+  scrapedAt             DateTime               @default(now())
+
+  // Relations
+  website               Website                @relation(fields: [websiteId], references: [id], onDelete: Cascade)
+
+  @@index([websiteId, dataType])
+}
+
+model GscData {
+  id                    Int                    @id @default(autoincrement())
+  websiteId             Int
+  query                 String
+  impressions           Int
+  clicks                Int
+  ctr                   Decimal                @db.Decimal(5, 4)
+  avgPosition           Decimal                @db.Decimal(5, 2)
+  date                  DateTime               @db.Date
+  fetchedAt             DateTime               @default(now())
+
+  // Relations
+  website               Website                @relation(fields: [websiteId], references: [id], onDelete: Cascade)
+
+  @@index([websiteId, date])
+}
+
+// ============== AI AGENTS ==============
+
+model Agent {
+  id                    Int                    @id @default(autoincrement())
+  websiteId             Int
+  agentType             String                 // 'technical_seo', 'content_strategy', 'content_creation', etc.
+  status                String                 @default("idle") // 'idle', 'working', 'blocked', 'needs_approval'
+  currentTaskId         Int?
+  memory                Json?                  // Persistent agent knowledge
+  lastActiveAt          DateTime?
+  createdAt             DateTime               @default(now())
+  updatedAt             DateTime               @updatedAt
+
+  // Relations
+  website               Website                @relation(fields: [websiteId], references: [id], onDelete: Cascade)
+  tasks                 AgentTask[]
+  sentMessages          AgentMessage[]         @relation("FromAgent")
+  receivedMessages      AgentMessage[]         @relation("ToAgent")
+  contentPieces         ContentPiece[]
+  backlinks             Backlink[]
+  approvalRequests      ApprovalRequest[]
+
+  @@index([websiteId, status])
+}
+
+// ============== AGENT TASKS ==============
+
+model AgentTask {
+  id                    Int                    @id @default(autoincrement())
+  agentId               Int
+  title                 String
+  description           String?
+  status                String                 @default("todo") // 'todo', 'in_progress', 'review_needed', 'completed'
+  priority              String                 @default("medium") // 'low', 'medium', 'high'
+  assignedAt            DateTime               @default(now())
+  startedAt             DateTime?
+  completedAt           DateTime?
+  requiresApproval      Boolean                @default(false)
+  approvedById          Int?
+  resultData            Json?
+
+  // Relations
+  agent                 Agent                  @relation(fields: [agentId], references: [id], onDelete: Cascade)
+  approvedBy            User?                  @relation(fields: [approvedById], references: [id])
+
+  @@index([agentId, status])
+}
+
+// ============== AGENT COMMUNICATIONS ==============
+
+model AgentMessage {
+  id                    Int                    @id @default(autoincrement())
+  websiteId             Int
+  fromAgentId           Int?
+  toAgentId             Int?
+  messageType           String                 // 'task_assignment', 'status_update', 'decision', 'discussion'
+  content               String
+  metadata              Json?
+  createdAt             DateTime               @default(now())
+
+  // Relations
+  website               Website                @relation(fields: [websiteId], references: [id], onDelete: Cascade)
+  fromAgent             Agent?                 @relation("FromAgent", fields: [fromAgentId], references: [id], onDelete: SetNull)
+  toAgent               Agent?                 @relation("ToAgent", fields: [toAgentId], references: [id], onDelete: SetNull)
+
+  @@index([websiteId, createdAt])
+}
+
+// ============== KEYWORDS ==============
+
+model Keyword {
+  id                    Int                    @id @default(autoincrement())
+  websiteId             Int
+  keyword               String
+  type                  String                 // 'primary', 'secondary', 'question', 'longtail', 'intent-based'
+  monthlySearchVolume   Int?
+  searchDifficulty      Int?                   // 0-100
+  competitionLevel      String?                // 'low', 'medium', 'high'
+  searchIntent          String?                // 'informational', 'navigational', 'commercial', 'transactional'
+  trends                String?                // 'rising', 'stable', 'declining'
+  extractedAt           DateTime               @default(now())
+  updatedAt             DateTime               @updatedAt
+
+  // Relations
+  website               Website                @relation(fields: [websiteId], references: [id], onDelete: Cascade)
+  serpResearch          SerpResearch[]
+  rankings              Ranking[]
+
+  @@unique([websiteId, keyword])
+  @@index([websiteId, type])
+}
+
+model SerpResearch {
+  id                    Int                    @id @default(autoincrement())
+  keywordId             Int
+  searchIntent          String
+  opportunityScore      Int                    // 0-100
+  difficulty            Int                    // 0-100
+  estimatedTraffic      String?
+  competitors           Json                   // Array of {name, url, title, domainAuthority}
+  peopleAlsoAsk         String[]
+  aiOverview            String?
+  strategicInsights     String[]
+  contentGaps           String[]
+  quickWins             String[]
+  rankingFactors        String[]
+  contentRecommendations Json?
+  researchedAt          DateTime               @default(now())
+  updatedAt             DateTime               @updatedAt
+  websiteId             Int
+
+  // Relations
+  website               Website                @relation(fields: [websiteId], references: [id], onDelete: Cascade)
+  keyword               Keyword                @relation(fields: [keywordId], references: [id], onDelete: Cascade)
+
+  @@unique([keywordId])
+  @@index([keywordId])
+  @@index([websiteId])
+}
+
+// ============== CONTENT MANAGEMENT ==============
+
+model ContentPiece {
+  id                    Int                    @id @default(autoincrement())
+  websiteId             Int
+  createdByAgentId      Int
+  keyword               String
+  title                 String
+  metaDescription       String?
+  slug                  String?
+  content               String
+  wordCount             Int?
+  readingTime           Int?                   // minutes
+  images                Json?                  // Array of image URLs with alt text
+  seoScore              Int?
+  keywordDensity        Decimal?               @db.Decimal(5, 2)
+  status                String                 @default("draft") // 'draft', 'review', 'approved', 'published'
+  publishedUrl          String?
+  publishedAt           DateTime?
+  wordPressPostId       Int?
+  linkedInPostId        String?
+  generatedAt           DateTime               @default(now())
+  createdAt             DateTime               @default(now())
+  updatedAt             DateTime               @updatedAt
+
+  // Relations
+  website               Website                @relation(fields: [websiteId], references: [id], onDelete: Cascade)
+  createdByAgent        Agent                  @relation(fields: [createdByAgentId], references: [id], onDelete: Cascade)
+  rankings              Ranking[]
+
+  @@index([websiteId, status])
+  @@index([websiteId, keyword])
+}
+
+// ============== RANKING TRACKING ==============
+
+model Ranking {
+  id                    Int                    @id @default(autoincrement())
+  websiteId             Int
+  keywordId             Int
+  contentPieceId        Int?
+  currentPosition       Int
+  previousPosition      Int?
+  positionChange        Int?
+  visibility            Int?                   // 0-100
+  estimatedTraffic      Int?
+  trend                 String?                // 'improving', 'stable', 'declining'
+  needsOptimization     Boolean                @default(false)
+  lastOptimizationAt    DateTime?
+  trackedAt             DateTime               @default(now())
+
+  // Relations
+  website               Website                @relation(fields: [websiteId], references: [id], onDelete: Cascade)
+  keyword               Keyword                @relation(fields: [keywordId], references: [id], onDelete: Cascade)
+  contentPiece          ContentPiece?          @relation(fields: [contentPieceId], references: [id], onDelete: SetNull)
+
+  @@index([websiteId, keywordId])
+  @@index([websiteId, trackedAt])
+}
+
+// ============== BACKLINKS ==============
+
+model Backlink {
+  id                    Int                    @id @default(autoincrement())
+  websiteId             Int
+  sourceUrl             String
+  targetUrl             String
+  anchorText            String?
+  domainRating          Int?
+  status                String                 @default("pending") // 'pending', 'acquired', 'failed'
+  createdByAgentId      Int
+  acquiredAt            DateTime?
+  createdAt             DateTime               @default(now())
+
+  // Relations
+  website               Website                @relation(fields: [websiteId], references: [id], onDelete: Cascade)
+  createdByAgent        Agent                  @relation(fields: [createdByAgentId], references: [id], onDelete: Cascade)
+
+  @@index([websiteId, status])
+}
+
+// ============== PERFORMANCE TRACKING ==============
+
+model PerformanceMetric {
+  id                    Int                    @id @default(autoincrement())
+  websiteId             Int
+  organicTraffic        Int
+  keywordRankingsAvg    Decimal?               @db.Decimal(5, 2)
+  domainAuthority       Int?
+  newBacklinks          Int
+  contentPublished      Int
+  recordedDate          DateTime               @db.Date
+  recordedAt            DateTime               @default(now())
+
+  // Relations
+  website               Website                @relation(fields: [websiteId], references: [id], onDelete: Cascade)
+
+  @@index([websiteId, recordedDate])
+}
+
+model WeeklyReport {
+  id                    Int                    @id @default(autoincrement())
+  websiteId             Int
+  weekStartDate         DateTime               @db.Date
+  executiveSummary      String?
+  winsOfWeek            String[]
+  challenges            String[]
+  nextWeekPriorities    String[]
+  performanceSnapshot   Json?
+  createdAt             DateTime               @default(now())
+
+  // Relations
+  website               Website                @relation(fields: [websiteId], references: [id], onDelete: Cascade)
+
+  @@index([websiteId, weekStartDate])
+}
+
+// ============== APPROVALS & PERMISSIONS ==============
+
+model ApprovalRequest {
+  id                    Int                    @id @default(autoincrement())
+  websiteId             Int
+  agentId               Int
+  actionType            String                 // 'publish_content', 'high_spend', 'strategy_pivot'
+  actionDetails         Json
+  status                String                 @default("pending") // 'pending', 'approved', 'rejected'
+  approvedById          Int?
+  createdAt             DateTime               @default(now())
+  respondedAt           DateTime?
+
+  // Relations
+  website               Website                @relation(fields: [websiteId], references: [id], onDelete: Cascade)
+  agent                 Agent                  @relation(fields: [agentId], references: [id], onDelete: Cascade)
+  approvedBy            User?                  @relation(fields: [approvedById], references: [id])
+
+  @@index([websiteId, status])
+}
+
+model ApiKey {
+  id                    Int                    @id @default(autoincrement())
+  organizationId        Int
+  keyHash               String                 @unique
+  name                  String?
+  lastUsedAt            DateTime?
+  createdAt             DateTime               @default(now())
+  expiresAt             DateTime?
+
+  // Relations
+  organization          Organization          @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+
+  @@index([organizationId])
+}
+
+// ============== MONETIZATION ==============
+
+model MonetizationConfig {
+  id                    Int                    @id @default(autoincrement())
+  websiteId             Int
+  amazonPartnerId       String?
+  amazonSecretKey       String?
+  shareASaleAffiliateId String?
+  shareASaleApiToken    String?
+  cjPublisherId         String?
+  cjApiKey              String?
+  clickBankAccountName  String?
+  clickBankApiKey       String?
+  googleAdSenseId       String?
+  emailProvider         String?                // 'convertkit', 'mailchimp', 'fluentcrm'
+  emailProviderApiKey   String?
+  createdAt             DateTime               @default(now())
+  updatedAt             DateTime               @updatedAt
+
+  // Relations
+  website               Website                @relation("MonetizationConfig", fields: [websiteId], references: [id], onDelete: Cascade)
+  affiliateRevenues     AffiliateRevenue[]
+  emailLists            EmailList[]
+
+  @@unique([websiteId])
+  @@index([websiteId])
+}
+
+model AffiliateRevenue {
+  id                    Int                    @id @default(autoincrement())
+  configId              Int
+  source                String                 // 'amazon', 'shareasale', 'cjaffiliate', 'clickbank'
+  amount                Decimal                @db.Decimal(10, 2)
+  clicks                Int                    @default(0)
+  conversions           Int                    @default(0)
+  recordedDate          DateTime               @db.Date
+  recordedAt            DateTime               @default(now())
+
+  // Relations
+  config                MonetizationConfig     @relation(fields: [configId], references: [id], onDelete: Cascade)
+
+  @@index([configId, source, recordedDate])
+}
+
+model EmailList {
+  id                    Int                    @id @default(autoincrement())
+  configId              Int
+  provider              String                 // 'convertkit', 'mailchimp', 'fluentcrm'
+  listId                String
+  subscriberCount       Int                    @default(0)
+  growthRate            Int                    @default(0)
+  lastSyncedAt          DateTime?
+  createdAt             DateTime               @default(now())
+  updatedAt             DateTime               @updatedAt
+
+  // Relations
+  config                MonetizationConfig     @relation(fields: [configId], references: [id], onDelete: Cascade)
+  trackingRecords       EmailTracking[]
+
+  @@unique([configId, provider])
+  @@index([configId])
+}
+
+model EmailTracking {
+  id                    Int                    @id @default(autoincrement())
+  emailListId           Int
+  messageId             String                 @unique
+  recipientEmail        String
+  subject               String
+  sentAt                DateTime               @default(now())
+  openedAt              DateTime?
+  clickedAt             DateTime?
+  clickedLink           String?
+  repliedAt             DateTime?
+  replyText             String?
+  sentiment             String?                // 'positive', 'negative', 'neutral'
+  status                String                 @default("sent")
+
+  // Relations
+  emailList             EmailList              @relation(fields: [emailListId], references: [id], onDelete: Cascade)
+
+  @@index([emailListId, status])
+  @@index([recipientEmail])
+}
+
+// ============== GUEST POSTING ==============
+
+model GuestPostingCampaign {
+  id                    Int                    @id @default(autoincrement())
+  websiteId             Int
+  campaignName          String
+  targetNiche           String
+  status                String                 @default("planning")
+  totalTargets          Int                    @default(0)
+  researchedCount       Int                    @default(0)
+  outreachedCount       Int                    @default(0)
+  publishedCount        Int                    @default(0)
+  createdAt             DateTime               @default(now())
+  updatedAt             DateTime               @updatedAt
+
+  // Relations
+  website               Website                @relation(fields: [websiteId], references: [id], onDelete: Cascade)
+  targets               GuestPostingTarget[]
+
+  @@index([websiteId, status])
+}
+
+model GuestPostingTarget {
+  id                    Int                    @id @default(autoincrement())
+  campaignId            Int
+  domain                String
+  domainAuthority       Int?
+  relevanceScore        Decimal                @db.Decimal(5, 2)
+  contactEmail          String?
+  guestPostUrl          String?
+  guidelinesUrl         String?
+  guidelinesContent     String?
+  estimatedMonthlyTraffic Int?
+  priority              String                 // 'critical', 'high', 'medium', 'low'
+  status                String                 @default("new")
+  outreachCount         Int                    @default(0)
+  openCount             Int                    @default(0)
+  clickCount            Int                    @default(0)
+  replyCount            Int                    @default(0)
+  published             Boolean                @default(false)
+  publishedUrl          String?
+  publishedDate         DateTime?
+  discoveredAt          DateTime               @default(now())
+  createdAt             DateTime               @default(now())
+
+  // Relations
+  campaign              GuestPostingCampaign   @relation(fields: [campaignId], references: [id], onDelete: Cascade)
+  outreachEmails        OutreachEmail[]
+
+  @@index([campaignId, status])
+  @@index([domain])
+}
+
+model OutreachEmail {
+  id                    Int                    @id @default(autoincrement())
+  targetId              Int
+  messageId             String                 @unique
+  recipientEmail        String
+  subject               String
+  body                  String
+  sentAt                DateTime               @default(now())
+  deliveredAt           DateTime?
+  openedAt              DateTime?
+  clickedAt             DateTime?
+  clickedLink           String?
+  repliedAt             DateTime?
+  replyText             String?
+  sentiment             String?
+  status                String                 @default("sent")
+
+  // Relations
+  target                GuestPostingTarget     @relation(fields: [targetId], references: [id], onDelete: Cascade)
+
+  @@index([targetId, status])
+  @@index([recipientEmail])
+}

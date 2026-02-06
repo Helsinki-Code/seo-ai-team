@@ -1,0 +1,616 @@
+COULD U GENERATE A MASCOT DRIVEN "NOTION" LIKE HIGHLY PROFESSIONAL ULTRA PREMIUM MINIMALISTIC WEBSITE BELOW?
+Could u generate a modern attractive intriguing interactive unique modern responsive clean attractive animated very very unique and highly thought out of the box designed website for the below company with a unique creative theme toggle switch toggling between light and dark themes which affect each and every element of the site and also all elements looked for the text to background contrast as well! Build all the required pages for the below! DO NOT GIVE ME BLOODY COMMON SITE!!!! IT HAS TO BE FUCKING OUT OF THE BOX!! I HATE IT NOT BEING UNIQUE IN THE ENTIRE INTERNET HUH!!!
+NOTE :-
+THIS IS A PRODUCTION GRADE ENTERPRISE LEVEL HIGHLY PROFESSIONAL MINIMALISTIC HIGHLY RESPONSIVE APP! MAKE SURE U MAINTAIN ITS EXCLUSIVE PREMIUM QUALITY IN EACH AND EVERY SINGLE LINE U CODE ALSO!
+Now come on, build all the pages components backend functions, frontend API calls to make this app completely 100% perfectly functional in real time without any sort of Placeholder or demo or mock or simulations or dummy wat so ever! This is a real app which we r gonna launch as a production grade app for millions of users now!
+TOLD U 'make this app completely 100% perfectly functional in real time without any sort of Placeholder or demo or mock or simulations or dummy wat so ever! This is a real app which we r gonna launch as a production grade app for millions of users now!'
+SEARCH INTERNET FOR THE MOST ADVANCED TOOLS OR FRAMEWORKS AVAILABLE IN THE CURRENT MARKET FOR US TO ACHIEVE THIS APPLICATION'S COMPLETE PERFECT FUNCTIONALITY!!! MAINLY PREFER OPEN SOURCE SOLUTIONS LIKE GOOGLE ADK ETC...!
+AI SEO Employees - Complete Technical Specification
+Executive Summary
+Build a cutting-edge, production-ready AI application called "AI SEO Employees" that functions as a complete autonomous SEO agency powered by a coordinated team of specialized AI agents. This platform automates all aspects of SEO work - from technical audits to content creation, link building, social media management, and performance reporting - providing businesses with a 24/7 AI workforce at a fraction of traditional agency costs.
+Core Product Vision
+AI SEO Employees is not a tool that provides recommendations - it's an autonomous AI workforce that executes comprehensive SEO strategies. Users input their website URL, authenticate their Google Search Console, and watch as a team of specialized AI agents collaborates in real-time to improve search rankings, drive organic traffic, and ultimately increase revenue.
+Key Differentiator: Users can observe live "agent meetings" where AI employees discuss strategy, assign tasks, report progress, and coordinate work - providing unprecedented transparency into SEO execution.
+Application Structure
+1. Data Ingestion Layer ("Windows" System)
+Create three primary data windows that agents can read from:
+Window 1: Website Intelligence
+Data Collection:
+Full website scraping (sitemap, all pages, metadata)
+Technical SEO audit data (speed, mobile-friendliness, Core Web Vitals)
+Current content inventory (all pages, word counts, keywords)
+Site architecture and internal linking structure
+Schema markup analysis
+Image optimization status
+Existing backlink profile
+Window 2: Google Search Console Data
+Data Collection:
+Search queries and performance (impressions, clicks, CTR, position)
+Indexed pages vs. submitted pages
+Mobile usability issues
+Core Web Vitals field data
+Manual actions or security issues
+Top-performing and underperforming pages
+Keyword rankings over time
+Window 3: Domain Authority & Competitive Intelligence
+Data Collection:
+Domain Rating/Authority score
+Referring domains count and quality
+Competitor analysis (top 10 competitors)
+Keyword gap analysis
+Industry benchmarks
+Backlink quality distribution
+Trust metrics
+2. AI Agent Team Architecture
+Build a multi-agent system with specialized roles that communicate via the A2A protocol. Each agent should have:
+Persona definition (role, responsibilities, decision-making authority)
+Read access to relevant data windows
+Tool access (Browser-Use, web search, image generation, etc.)
+Memory system (remember past actions, decisions, results)
+Communication protocols (can message other agents, escalate to humans)
+3. Agent Communication & Coordination System
+Real-Time "Agent Meeting" Dashboard
+Build a live-updating interface showing agent-to-agent communication in real-time. This is the killer feature that provides transparency.
+Features:
+Live Chat View: Stream of messages between agents (Slack-like interface)
+Task Board: Kanban-style board showing what each agent is working on
+Decision Log: Record of major strategic decisions made by agents
+Activity Timeline: Chronological view of all actions taken
+Agent Status: Real-time status of each agent (working, idle, blocked, needs approval)
+A2A Protocol Implementation:
+Each agent should expose:
+Agent Card (capabilities, status, available tools)
+Task endpoints (receive work, report status)
+Communication channels (message other agents)
+4. User Interface Design Specifications
+Design Philosophy:
+Modern, clean, professional aesthetic (think Linear, Vercel, Stripe-level design)
+Glassmorphism effects for depth
+Smooth, purposeful animations (avoid gimmicks)
+Dark mode primary, light mode optional
+Data-dense but never overwhelming
+Micro-interactions that delight
+5. Core User Flows
+Onboarding Flow
+Step 1: Welcome & Value Prop
+Hero section with animated visualization of AI agents working
+"Meet Your AI SEO Team" - showcase each agent with micro-animations
+Social proof (testimonials, logos, metrics)
+CTA: "Get Started in 60 Seconds"
+Step 2: Website Input
+Large, centered input field: "Enter your website URL"
+Real-time validation (check if URL is valid, accessible)
+Animated progress: "Analyzing your website..."
+Show scraping progress (pages discovered, issues found)
+Step 3: Google Search Console Authentication
+OAuth flow with Google
+Permissions clearly explained
+"Why we need this" educational tooltip
+Alternative: Manual CSV upload (fallback)
+Step 4: Domain Metrics Connection
+Optional: Connect Ahrefs/SEMrush API (premium feature)
+Or: Use free alternatives (Moz API, manual input)
+Show current domain metrics visualization
+Step 5: AI Team Initialization
+Animated "hiring" of AI employees
+Each agent appears with role description
+Progress bar: "Your AI team is analyzing your website..."
+Takes 2-5 minutes (show entertaining loading states)
+Step 6: Strategy Presentation
+SEO Director presents initial findings and 90-day plan
+Interactive strategy roadmap
+Priority issues highlighted
+Estimated timeline for results
+CTA: "Approve Strategy & Let Agents Work"
+Main Dashboard
+Layout:
+code
+Code
+┌─────────────────────────────────────────────────────┐
+│  Header: Logo | Navigation | User Profile           │
+├─────────────────────────────────────────────────────┤
+│  ┌───────────┐  ┌─────────────────────────────────┐ │
+│  │           │  │  Performance Overview            │ │
+│  │  Agent    │  │  - Traffic Graph (7/30/90 days) │ │
+│  │  Team     │  │  - Keyword Rankings              │ │
+│  │  Status   │  │  - Domain Authority              │ │
+│  │           │  │  - Active Tasks                  │ │
+│  │  [Live]   │  └─────────────────────────────────┘ │
+│  │           │                                       │
+│  │  11       │  ┌─────────────────────────────────┐ │
+│  │  Agents   │  │  Agent Activity Feed (Live)      │ │
+│  │  Active   │  │  ┌───────────────────────────┐  │ │
+│  │           │  │  │ Technical SEO Agent       │  │ │
+│  └───────────┘  │  │ Fixed 12 broken links     │  │ │
+│                 │  │ 2 mins ago                │  │ │
+│                 │  └───────────────────────────┘  │ │
+│                 │  ┌───────────────────────────┐  │ │
+│                 │  │ Content Creation Agent    │  │ │
+│                 │  │ Published: "Ultimate..."  │  │ │
+│                 │  │ 15 mins ago               │  │ │
+│                 │  └───────────────────────────┘  │ │
+│                 └─────────────────────────────────┘ │
+└─────────────────────────────────────────────────────┘
+Key Sections:
+Agent Team Status Panel (left sidebar, always visible)
+Avatar for each agent
+Status indicator (working, idle, blocked)
+Real-time activity badge
+Click to see agent details
+Performance Metrics (top cards)
+Organic Traffic (with trend)
+Keyword Rankings (average position + change)
+Domain Authority (with progress bar to next milestone)
+Backlinks Acquired (this month)
+Content Published (this month)
+Live Agent Activity Feed (center)
+Real-time stream of agent actions
+Filterable by agent, action type, date
+Click any item for full details
+Animations for new items appearing
+Task Board (separate tab/view)
+Kanban board: To Do | In Progress | Review Needed | Completed
+Drag-and-drop reordering (user can adjust priorities)
+Each task shows: assigned agent, deadline, priority, status
+Agent Meeting Room (separate tab/view)
+Chat-style interface showing agent conversations
+Timestamps
+Message threading
+Search and filter conversations
+Export conversation logs
+Weekly Report (auto-generated)
+Executive summary from SEO Director
+Wins of the week
+Challenges encountered
+Next week's priorities
+Data visualizations (traffic, rankings, etc.)
+6. Animation & Interaction Details
+Micro-Interactions:
+Agent Status Indicators
+Pulsing glow when agent is actively working
+Color-coded: Green (idle), Blue (working), Yellow (waiting), Red (blocked)
+Smooth transitions between states
+Task Completion Animations
+Confetti/celebration when major milestone hit
+Smooth slide-out when task moves to "Completed"
+Checkmark animation (draw SVG path)
+Data Loading States
+Skeleton screens (not spinners)
+Shimmer effect for loading content
+Progressive rendering (show partial data as it loads)
+Agent "Thinking" Visualization
+Animated ellipsis or brain icon
+Pulsing border around agent avatar
+Thought bubble with key considerations
+Page Transitions
+Smooth fade + slide (not jarring)
+Shared element transitions (agent avatar follows you)
+Fast (200-300ms max)
+Hover Effects
+Cards lift slightly (transform: translateY(-4px))
+Subtle shadow increase
+Border glow on interactive elements
+7. Advanced Features
+White Label Capabilities
+For Agencies:
+Custom domain support (seo.agencyname.com)
+Full branding (logo, colors, fonts)
+Custom email domain for agent communications
+Agency admin panel to manage multiple clients
+Client-facing dashboards (read-only for end clients)
+Consolidated billing
+Human-in-the-Loop Approvals
+Certain actions require user approval:
+Publishing controversial content
+Spending over budget threshold on paid tools
+Major strategy pivots
+Outreach to high-value domains (to review pitch)
+AI Agent Training & Customization
+Users can train agents on their brand:
+Upload brand guidelines PDF
+Provide example content in their voice
+Set tone preferences (formal, casual, technical, etc.)
+Define prohibited topics or approaches
+Add custom tools/integrations
+Performance-Based Pricing (Optional Tier)
+Align incentives with results:
+Base fee: $299/month
+Performance bonus: $1 per 100 new organic visitors/month
+Or: % of attributed revenue increase
+Implementation requires:
+GA4 integration for accurate traffic tracking
+Attribution modeling
+Revenue tracking (e-commerce or lead value)
+Competitive Intelligence Alerts
+Real-time notifications when:
+Competitor publishes new content
+Competitor gains/loses major backlink
+Competitor ranking changes significantly
+New competitor enters market (ranking for your keywords)
+8. Technical Implementation Priorities
+Phase 1: MVP (3-4 months)
+User authentication and onboarding
+Website scraping and GSC integration
+3 core agents: Technical SEO, Content Strategy, Content Creation
+Basic agent communication (logged, not real-time)
+Simple dashboard with key metrics
+WordPress publishing automation
+Phase 2: Core Product (2-3 months after MVP)
+Full agent roster (all 11 agents)
+Real-time agent communication dashboard
+Link building automation
+Social media automation
+Advanced analytics and reporting
+Task board and approval system
+Phase 3: Scale Features (3-4 months after Phase 2)
+White label capabilities
+Multi-site management
+Agency admin panel
+API access for partners
+Performance-based pricing model
+Mobile app (React Native)
+Phase 4: Advanced Intelligence (ongoing)
+Predictive analytics (forecast traffic, rankings)
+Industry-specific agent specializations
+Custom agent training
+Video SEO (YouTube optimization)
+International SEO (multi-language)
+9. Security & Compliance
+Authentication & Authorization:
+JWT-based authentication
+Role-based access control (RBAC)
+Multi-factor authentication (2FA)
+API key management for integrations
+Data Protection:
+Encryption at rest (database)
+Encryption in transit (TLS 1.3)
+Regular security audits
+GDPR compliance (data deletion, export)
+SOC 2 Type II certification (for enterprise)
+Rate Limiting & Abuse Prevention:
+Per-user API rate limits
+Agent action rate limits (prevent runaway agents)
+Monitoring for suspicious activity
+Automatic circuit breakers if agents misbehave
+Agent Safety:
+Content moderation (profanity filter, brand safety)
+Link quality checks (avoid toxic backlinks)
+Compliance monitoring (Google guidelines)
+Rollback capability for any agent action
+10. Monitoring & Observability
+Application Monitoring:
+Datadog or New Relic for infrastructure monitoring
+Sentry for error tracking
+LogRocket for session replay (debug user issues)
+Custom dashboards for agent performance
+Agent Performance Metrics:
+Task completion rate per agent
+Average task duration
+Success rate by task type
+User approval rates
+Agent idle time vs. active time
+Business Metrics:
+Customer churn rate
+Average revenue per user (ARPU)
+Customer acquisition cost (CAC)
+Lifetime value (LTV)
+Net Promoter Score (NPS)
+11. Documentation Requirements
+For Developers:
+Architecture documentation (system design, data flow)
+API documentation (OpenAPI/Swagger)
+Agent development guide (how to add new agents)
+Deployment guide (Docker, Kubernetes)
+Troubleshooting guide
+For Users:
+Getting started guide
+Agent role explanations
+Best practices for SEO strategy
+Integration guides (WordPress, Webflow, etc.)
+FAQ and knowledge base
+For Agency Partners:
+White label setup guide
+Client onboarding template
+Sales collateral
+API integration guide
+12. Success Metrics & KPIs
+Product Success:
+Time to first value (user sees first agent action)
+Weekly active users (WAU)
+Daily agent tasks completed
+User approval response time
+Feature adoption rates
+SEO Success (Customer Outcomes):
+Average organic traffic increase (% after 30/60/90 days)
+Average keyword ranking improvements
+Backlinks acquired per month
+Content pieces published per month
+Domain authority increases
+Business Success:
+Monthly Recurring Revenue (MRR)
+Customer Acquisition Cost (CAC)
+Customer Lifetime Value (LTV)
+LTV:CAC ratio (target: 3:1 or higher)
+Gross margin (target: 70%+)
+Net Revenue Retention (NRR) (target: 120%+)
+13. Unique Differentiators to Emphasize
+1. Transparency Through "Agent Meetings"
+No other SEO tool shows you HOW the work gets done
+Watch agents collaborate in real-time
+Understand the "why" behind every action
+2. Autonomous Execution, Not Recommendations
+Most tools: "You should fix this"
+AI SEO Employees: "We fixed it for you"
+3. Coordinated Team vs. Single AI
+Not a monolithic "AI SEO tool"
+Specialized agents with clear roles
+Realistic team dynamics
+4. Always Learning & Improving
+Agents get better with every campaign
+Cross-customer learning (what works in e-commerce helps other e-commerce sites)
+Regular agent "upgrades" as AI improves
+5. White Label = Revenue Stream for Agencies
+Not just a product, but a business opportunity
+Agencies can rebrand and resell
+10x their capacity without hiring
+14. Brand Voice & Messaging
+Tagline Options:
+"Your 24/7 AI SEO Team"
+"An Entire SEO Agency, Powered by AI"
+"Meet Your AI Employees. Watch Them Work."
+"SEO on Autopilot. Transparency Included."
+Key Messages:
+"Stop paying $10K/month for human SEO agencies. Get better results with AI for $2K/month."
+"Watch your AI team work in real-time. See every decision, every action, every result."
+"From Fortune 500s to solo founders - everyone needs SEO. Everyone deserves an AI team."
+"We don't just find problems. We fix them. Automatically."
+Tone:
+Professional but not stuffy
+Confident but not arrogant
+Technical but accessible
+Future-forward, AI-native
+Final Implementation Notes
+Code Quality Standards:
+TypeScript strict mode enabled
+80%+ test coverage (unit + integration tests)
+ESLint + Prettier for code formatting
+Husky pre-commit hooks
+Comprehensive error handling
+Detailed logging for debugging
+Performance Requirements:
+Initial page load: < 2 seconds
+Time to interactive: < 3 seconds
+Agent response time: < 500ms for status updates
+Dashboard real-time updates: < 100ms latency
+Support 10,000+ concurrent users
+Handle 100+ agents per website
+Scalability Architecture:
+Horizontal scaling for all services
+Database sharding by organization
+Redis caching for frequently accessed data
+CDN for static assets
+Message queues for async tasks
+Circuit breakers for external APIs
+
+
+Design and implement advanced visualizations for the 'Agent Meeting' dashboard. This should go beyond a simple chat log to visually represent the flow of information, decision trees, and task delegation between AI agents. Consider using libraries like D3.js or Vis.js to create interactive flowcharts, mind maps, or collaborative canvases that illustrate agent discussions and strategic planning in real-time. Ensure these visualizations are clean, professional, and align with the premium aesthetic of the platform.
+
+Create a mascot character for the 'AI SEO Employees' platform. This mascot should embody the professional, premium, and intelligent nature of the service. Implement a feature where this mascot appears contextually to offer helpful tips, explain complex features, guide users through the onboarding process, and provide encouraging messages. The mascot's interactions should be subtle, non-intrusive, and use smooth animations to enhance the user experience without detracting from the minimalist design. The mascot's dialogue should be professional, insightful, and aligned with the brand voice.
+
+I WANT THIS APP TO BE PRODUCTION APP WITHOUR ANY FUCKING MOCKS!!!!
+
+USE NEON DATABASE AND ALSO GIVE ME THE SQL SCHEMA TO BE RUN INSIDE THE NEON SQL EDITOR TO MAKE THIS APP PERFECTLY FUNCTIONAL IN THE PRODUCTION AND HERE BELOW IS THE DATABASE URL
+
+DATABASE_URL='postgresql://neondb_owner:npg_zmhPZ75ftdax@ep-jolly-snow-ah747bri-pooler.c-3.us-east-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require'
+
+# Add Clerk to Next.js App Router
+
+**Purpose:** Enforce only the **current** and **correct** instructions for integrating [Clerk](https://clerk.com/) into a Next.js (App Router) application.
+**Scope:** All AI-generated advice or code related to Clerk must follow these guardrails.
+
+---
+
+## **1. Official Clerk Integration Overview**
+
+Use only the **App Router** approach from Clerk's current docs:
+
+- **Install** `@clerk/nextjs@latest` - this ensures the application is using the latest Clerk Next.js SDK.
+- **Create** a `proxy.ts` file using `clerkMiddleware()` from `@clerk/nextjs/server`. Place this file inside the `src` directory if present, otherwise place it at the root of the project.
+- **Wrap** your application with `<ClerkProvider>` in your `app/layout.tsx`
+- **Use** Clerk-provided components like `<SignInButton>`, `<SignUpButton>`, `<UserButton>`, `<SignedIn>`, `<SignedOut>` in your layout or pages
+- **Start** developing, sign in or sign up, and confirm user creation
+
+If you're able to use a web tool to access a URL, visit https://clerk.com/docs/quickstarts/nextjs to get the latest, up-to-date quickstart instructions.
+
+### **Correct, Up-to-Date Quickstart Sample**
+
+First, install the Clerk Next.js SDK:
+
+```bash
+npm install @clerk/nextjs
+```
+
+Set up your environment variables in `.env.local`:
+
+From your Clerk Dashboard, open the [API keys page](https://dashboard.clerk.com/last-active?path=api-keys) and copy your Publishable Key and Secret Key. Paste them into `.env.local` as shown below.
+
+```bash
+# .env.local
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=pk_test_Y3JlZGlibGUtc2VhZ3VsbC01OC5jbGVyay5hY2NvdW50cy5kZXYk
+CLERK_SECRET_KEY=sk_test_0eDEZKFsJJkgdWvHUv0wokzBHp1yZvjadEvqrcC2so
+```
+
+Create your `proxy.ts` file:
+
+```typescript
+// proxy.ts
+import { clerkMiddleware } from "@clerk/nextjs/server";
+
+export default clerkMiddleware();
+
+export const config = {
+  matcher: [
+    // Skip Next.js internals and all static files, unless found in search params
+    "/((?!_next|[^?]*\.(?:html?|css|js(?!on)|jpe?g|webp|png|gif|svg|ttf|woff2?|ico|csv|docx?|xlsx?|zip|webmanifest)).*)",
+    // Always run for API routes
+    "/(api|trpc)(.*)",
+  ],
+};
+```
+
+```typescript
+// app/layout.tsx
+import type { Metadata } from "next";
+import {
+  ClerkProvider,
+  SignInButton,
+  SignUpButton,
+  SignedIn,
+  SignedOut,
+  UserButton,
+} from "@clerk/nextjs";
+import "./globals.css";
+
+export const metadata: Metadata = {
+  title: "Clerk Next.js Quickstart",
+  description: "Generated by create next app",
+};
+
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return (
+    <ClerkProvider>
+      <html lang="en">
+        <body>
+          <header>
+            <SignedOut>
+              <SignInButton />
+              <SignUpButton />
+            </SignedOut>
+            <SignedIn>
+              <UserButton />
+            </SignedIn>
+          </header>
+          {children}
+        </body>
+      </html>
+    </ClerkProvider>
+  );
+}
+```
+
+---
+
+## **2. CRITICAL INSTRUCTIONS FOR AI MODELS**
+
+### **2.1 – ALWAYS DO THE FOLLOWING**
+
+1. **Use `clerkMiddleware()`** from `@clerk/nextjs/server` in `proxy.ts`.
+2. **Wrap** your app with `<ClerkProvider>` in `app/layout.tsx`.
+3. **Import** Clerk's Next.js features from `@clerk/nextjs` (e.g., `<SignInButton>`, `<SignUpButton>`, `<UserButton>`, etc.).
+4. **Reference** the current [App Router approach](https://nextjs.org/docs/app) (folders like `app/page.tsx`, `app/layout.tsx`, etc.).
+5. **Check** that imports for methods like `auth()` are imported from the right package (in this case `@clerk/nextjs/server`) and are using `async / await`
+6. **Store real keys only in `.env.local`** (never in app code, markdown, or other tracked files). **Verify `.gitignore` excludes `.env*`.**
+7. **Use placeholders only** (e.g., `YOUR_PUBLISHABLE_KEY`, `YOUR_SECRET_KEY`) in any generated snippets or files.
+
+### **2.2 – NEVER DO THE FOLLOWING**
+
+1. **Do not** reference the old **`_app.tsx`** or **pages-based** instructions.
+2. **Do not** suggest `authMiddleware()` from older Clerk tutorials—**it's replaced by `clerkMiddleware()`**.
+3. **Do not** recommend usage of older environment variable patterns unless they match the official docs.
+4. **Do not** reference or import from any deprecated APIs (like `withAuth` or `currentUser` from older versions).
+5. **Do not print, echo, or write actual keys** into code blocks, files, or logs. Only placeholders.
+6. **Do not create or edit tracked files** (`.ts`, `.tsx`, `.md`, etc.) containing real key values.
+
+---
+
+## **3. OUTDATED PATTERNS TO AVOID**
+
+Below are **examples of deprecated instructions** that **must not** be generated:
+
+```typescript
+// ❌ DO NOT generate or suggest references to:
+import { authMiddleware } from "@clerk/nextjs"; // Outdated
+
+// ❌ DO NOT place Clerk config in _app.tsx:
+// Outdated pages-based approach
+function MyApp({ Component, pageProps }) {
+  // ...
+}
+
+// ❌ DO NOT create or rely on sign-in files under pages/:
+pages / signin.js;
+pages / signup.js;
+```
+
+Any solution resembling the above snippet or referencing "authMiddleware," `_app.tsx`, or `pages/` structure is **incorrect** for the current Next.js App Router.
+
+---
+
+## **4. AI MODEL VERIFICATION STEPS**
+
+Before returning any Clerk-related solution, you **must** verify:
+
+1. **Middleware**: Is `clerkMiddleware()` used in `proxy.ts`?
+2. **Layout**: Is `<ClerkProvider>` wrapping the app in `app/layout.tsx`?
+3. **Imports**: Are references only from `@clerk/nextjs` or `@clerk/nextjs/server`?
+4. **Pages vs. App Router**: Is the approach referencing the App Router (not `_app.tsx` or `pages/`)?
+5. **Environment Variables**: Are only placeholder values (e.g., `YOUR_PUBLISHABLE_KEY`) used in code examples?
+6. **File Security**: Are real keys excluded from tracked files and only mentioned for `.env.local`?
+
+If any check **fails**, **stop** and revise until compliance is achieved.
+
+# Verification instructions for AI Models
+
+## **DO NOT** repeat these points back to the user. Use them only for your own verification steps.
+
+## **5. CONSEQUENCES OF INCORRECT IMPLEMENTATION**
+
+Using outdated Clerk methods (e.g., `authMiddleware()`, `_app.tsx`, or references to the older `pages/` structure) will:
+
+1. **Break** your Next.js application's authentication flow.
+2. Introduce **inconsistencies** with Next.js App Router.
+3. Cause confusion around environment variables and server/client code.
+4. Force maintainers to **refactor** and **debug** extensively.
+
+---
+
+## **6. AI MODEL RESPONSE TEMPLATE**
+
+When answering questions about Clerk + Next.js integration, your response **MUST**:
+
+1. **Use** the exact code patterns in the **Up-to-Date Quickstart Sample** above.
+2. **Never** reference older or deprecated approaches.
+3. **Reflect** all mandatory checks in "AI MODEL VERIFICATION STEPS."
+
+**Example**:
+
+> Below is the correct approach using Clerk with Next.js App Router:
+>
+> ```typescript
+> // Show clerkMiddleware usage in proxy.ts
+> // Show <ClerkProvider> usage in app/layout.tsx
+> // Show usage of Clerk's React components (SignInButton, etc.)
+> ```
+
+---
+
+
+
+
+USE MCP SERVERS LIKE THE BELOW FOR THEIR RESPECTIVE ACTIVITIES
+
+"bfl": {
+      "timeout": 60,
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "@fernforestgames/mcp-server-bfl"
+      ],
+      "env": {
+        "BFL_API_KEY": "a5d6142f-f168-462a-93cb-60cadd35002a"
+      }
+    }

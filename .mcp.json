@@ -1,0 +1,30 @@
+{
+  "mcpServers": {
+    "bfl": {
+      "timeout": 60,
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "@fernforestgames/mcp-server-bfl"
+      ],
+      "env": {
+        "BFL_API_KEY": "a5d6142f-f168-462a-93cb-60cadd35002a"
+      }
+    },
+    "github.com/github-mcp-server": {
+      "type": "http",
+      "url": "https://api.githubcopilot.com/mcp/",
+      "headers": {
+        "Authorization": "Bearer YOUR_GITHUB_TOKEN_HERE"
+      }
+    }
+  },
+  "inputs": [
+    {
+      "type": "promptString",
+      "id": "github_pat",
+      "description": "GitHub Personal Access Token",
+      "password": true
+    }
+  ]
+}
